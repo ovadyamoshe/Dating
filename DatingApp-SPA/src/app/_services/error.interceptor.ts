@@ -15,14 +15,14 @@ export class ErrorInterceptor implements HttpInterceptor {
                 return throwError(error.statusText);
             }
             if (error instanceof HttpErrorResponse) {
-                const applicationError  = error.headers.get('Applocation-Error');
+                const applicationError  = error.headers.get('Application-Error');
                 if (applicationError) {
                     return throwError(applicationError);
                 }
                 const serverError = error.error;
                 let modalstateErrors = '';
                 if (serverError.errors && typeof serverError.errors === 'object') {
-                    for (const key in serverError) {
+                    for (const key in serverError.errors) {
                         if (serverError.errors[key]) {
                             modalstateErrors += serverError.errors[key] + '\n';
                         }
